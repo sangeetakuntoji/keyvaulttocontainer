@@ -1,0 +1,24 @@
+name: Build  Container Image and Push into ACR
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: dockercontent
+    steps:
+    - uses: actions/checkout@v2
+    - uses: azure/docker-login@v1
+      with:
+        login-server: devlopmentacr.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - run: |
+        docker build . -t devlopmentacr.azurecr.io/websitehtml:${{ github.sha }} 
+        docker push devlopmentacr.azurecr.io/websitehtml:${{ github.sha }} 
