@@ -8,17 +8,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: dockercontent
     steps:
-    - uses: actions/checkout@v2
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}           # Strong box key you generated in the first step
+    - uses: Azure/get-keyvault-secrets@v1.0
+      with:
+        keyvault: "keyvaultstaticapp001"
+        secrets: 'REGISTRY-PASSWORD, REGISTRY-USERNAME' 
+      id: keyvaultaction
+
     - uses: azure/docker-login@v1
       with:
         login-server: devlopmentacr.azurecr.io
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
+        username: ${{ steps.keyvaultaction.outputs.REGISTRY-USERNAME }}
+        password: ${{ steps.keyvaultaction.outputs.REGISTRY-PASSWORD }}
     - run: |
-        docker build . -t devlopmentacr.azurecr.io/websitehtml:${{ github.sha }} 
-        docker push devlopmentacr.azurecr.io/websitehtml:${{ github.sha }} 
+        shell: bash
+        working-directory: dockercontent
+        docker build . -t devlopmentacr.azurecr.io/dockerwebsite:${{ github.sha }} 
+        docker push devlopmentacr.azurecr.io/dockerwebsite:${{ github.sha }} 
