@@ -5,8 +5,8 @@ on:
     branches:
     - main
 
-env:
-  SECRETVALUE: ''
+#env:
+ # SECRETVALUE: ''
 
 jobs:
   build:
