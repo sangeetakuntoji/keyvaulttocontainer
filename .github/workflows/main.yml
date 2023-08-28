@@ -27,8 +27,8 @@ jobs:
         login-server: devlopmentacr.azurecr.io
         username: ${{ steps.keyvaultaction.outputs.REGISTRY-USERNAME }}
         password: ${{ steps.keyvaultaction.outputs.REGISTRY-PASSWORD }}
-    - run: |
-        shell: bash
-        working-directory: dockercontent
-        docker build . -t devlopmentacr.azurecr.io/dockerwebsite:${{ github.sha }} 
-        docker push devlopmentacr.azurecr.io/dockerwebsite:${{ github.sha }} 
+    - run: 
+      shell: bash
+      working-directory: dockercontent
+       docker build . -t devlopmentacr.azurecr.io/dockerwebsite:${{ github.sha }} 
+       docker push devlopmentacr.azurecr.io/dockerwebsite:${{ github.sha }} 
