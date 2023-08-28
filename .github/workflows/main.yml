@@ -5,9 +5,9 @@ on:
     branches:
     - main
 
-#env:
- # SECRETVALUE: ''
-
+env:
+ SECRETVALUE: ''
+ ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +16,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}           # Strong box key you generated in the first step
     - uses: Azure/get-keyvault-secrets@v1.0
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      #ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       with:
         keyvault: "keyvaultstaticapp001"
         secrets: 'REGISTRY-PASSWORD, REGISTRY-USERNAME' 
