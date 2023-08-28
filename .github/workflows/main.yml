@@ -35,5 +35,5 @@ jobs:
         password: ${{ steps.keyvaultaction.outputs.REGISTRY-PASSWORD }}
 
     - run: |  
-       docker build . -t devlopmentacr.azurecr.io/wesitehtml1:${{ github.sha }} 
-       docker push devlopmentacr.azurecr.io/websitehtml1:${{ github.sha }} 
+       docker build . -t devlopmentacr.azurecr.io/mywebsite:${{ github.sha }} 
+       docker push devlopmentacr.azurecr.io/mywebsite:${{ github.sha }} 
