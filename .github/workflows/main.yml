@@ -1,10 +1,10 @@
-name: Build  Container Image and Push into ACR
+name: keyvault fetach secrets
 
 on:
   push:
     branches:
     - main
-    
+
 env:
   SECRETVALUE: ''
 
